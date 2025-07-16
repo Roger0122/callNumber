@@ -1,10 +1,11 @@
 <script setup>
+
 </script>
 
 <template>
-    <h1 class="text-3xl">
-    Hello world!
-  </h1>
+  <div class="min-h-screen bg-gray-100 text-center p-6">
+    <RouterView/>
+  </div>
 </template>
 
 <style scoped>
