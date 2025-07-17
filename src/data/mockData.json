@@ -1,0 +1,7 @@
+{
+  "waitingCount": 16,
+  "preparing": ["A001", "K803", "W008", "K804"],
+  "served": ["A008", "2002", "2001", "1001"],
+  "delivery": ["#4147", "#4148", "#4140", "c2a05"],
+  "showDelivery": true
+}

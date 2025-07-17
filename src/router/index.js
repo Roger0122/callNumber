@@ -1,14 +1,22 @@
-import { createMemoryHistory, createRouter } from 'vue-router'
+import { createWebHistory , createRouter } from 'vue-router'
 import CustomerView from '../views/CustomerView.vue'
 import AdminView from '../views/AdminView.vue'
 
 const routes = [
-  { path: '/', name: 'Customer', component: CustomerView },
-  { path: '/admin', name: 'Admin', component: AdminView },
+  { 
+    path: '/',
+    name: 'Customer', 
+    component: CustomerView 
+  },
+  { 
+    path: '/admin', 
+    name: 'Admin', 
+    component: AdminView 
+  },
 ]
 
 const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHistory(),
   routes,
 })
 
