@@ -25,7 +25,7 @@
     </div>
 
     <!-- 右側：操作按鈕 -->
-    <div class="w-[15%] flex flex-col justify-start gap-6">
+    <div class=" flex flex-col justify-start gap-6">
       <button 
         :class="[
         'text-white text-3xl py-3 rounded shadow font-medium',

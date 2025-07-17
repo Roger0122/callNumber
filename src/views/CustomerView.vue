@@ -1,7 +1,7 @@
 <template>
   <div class="flex h-screen w-screen bg-gray-100 p-4">
 
-        <!-- 左側：準備中 -->
+    <!-- 左側：準備中 -->
     <div class="w-[40%] pr-4 flex flex-col">
         <TitleBox
           icon="/Preparing.png"
