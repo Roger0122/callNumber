@@ -1,5 +1,11 @@
 <template>
-  <div class="flex h-screen w-screen bg-gray-100 p-4">
+  <div
+    :class="[
+    'flex h-screen w-screen p-4 bg-gray-100',
+    showConfirmModal ? 'bg-gray-100  opacity-10' : 'bg-gray-100'
+    ]"
+  
+  >
     <!-- 左側：叫號清單區 -->
     <div class="flex-1 pr-4 flex flex-col min-w-0">
         <TitleBox
@@ -12,33 +18,48 @@
         <OrderNumberGrid
         :list="servedList"
         :columns="3"
+        :isDeletable="isDeleting"
+        :selected="selectedOrder"
+        @select="onSelect"
         />
     </div>
 
     <!-- 右側：操作按鈕 -->
     <div class="w-[15%] flex flex-col justify-start gap-6">
       <button 
-      :class="[
-      'text-white text-3xl py-3 rounded shadow font-medium',
-      isActive ? 'bg-red-600' : 'bg-green-600'
-    ]"
-      @click="isActive = !isActive"
-      >銷單</button>
-      <button class="bg-amber-500 text-white text-3xl py-3 rounded shadow font-medium">今日紀錄</button>
-      <button class="bg-indigo-600 text-white text-3xl py-3 rounded shadow font-medium">設定</button>
+        :class="[
+        'text-white text-3xl py-3 rounded shadow font-medium',
+        isDeleting ? 'bg-red-600' : 'bg-green-600'
+      ]"
+        @click="toggleDeleteMode"
+        >銷單
+      </button>
+      <button class="bg-amber-500 text-white text-3xl py-3 rounded shadow font-medium">
+      今日紀錄
+      </button>
+      <button class="bg-indigo-600 text-white text-3xl py-3 rounded shadow font-medium">
+      設定
+      </button>
     </div>
   </div>
+  <ConfirmModal
+  :isOpen="showConfirmModal"
+  :message="`確定要銷單：${selectedOrder}`"
+  @confirm="confirmCancelOrder"
+  @update:isOpen="showConfirmModal = val"
+/>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import TitleBox from '../components/TitleBox.vue'
 import OrderNumberGrid from '../components/OrderNumberGrid.vue'
+import ConfirmModal from '../components/ConfirmModal.vue'
+import { toastSimple } from '../composables/toastSimple.js'
 
-const isActive = ref(false)
-
-
-
+const isDeleting = ref(false)
+const selectedOrder = ref(null)
+const showConfirmModal = ref(false)
 
 
 // 模擬號碼
@@ -52,6 +73,23 @@ const servedList = ref([
 ])
 
 
+function toggleDeleteMode() {
+  isDeleting.value = !isDeleting.value
+  selectedOrder.value = null
+}
+
+function onSelect(orderNo) {
+  selectedOrder.value = orderNo
+  showConfirmModal.value = true
+}
+
+function confirmCancelOrder() {
+  servedList.value = servedList.value.filter(item => item !== selectedOrder.value)
+  toastSimple('success', `銷單成功！`)
+  selectedOrder.value = null
+  showConfirmModal.value =false
+
+}
 
 
 </script>

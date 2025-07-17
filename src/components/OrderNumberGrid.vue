@@ -11,7 +11,13 @@
     <div
       v-for="(num, index) in list"
       :key="index"
-      :class="['min-w-0 w-full text-center font-bold text-2xl', textColor]"
+      :class="[
+      'cursor-pointer min-w-0 w-full text-center font-bold text-2xl rounded p-2', 
+      textColor,
+      isDeletable ? 'hover:bg-green-300' : '',
+      selected === num ? 'bg-red-200' : ''
+      ]"
+      @click = "handleClick(num)"
     >
       {{ num }}
     </div>
@@ -20,7 +26,10 @@
 </template>
 
 <script setup>
-defineProps({
+
+const emit = defineEmits(['select'])
+
+const props = defineProps({
   list: {
     type: Array,
     default: () => []
@@ -32,6 +41,22 @@ defineProps({
   textColor: {
     type: String,
     default: 'text-black'
+  },
+  isDeletable: {
+    type: Boolean,
+    default: false
+  },
+  selected: {
+    type: String,
+    default: null
   }
 })
+
+
+function handleClick(num){
+  if(props.isDeletable){
+    emit('select', num)
+  }
+}
+
 </script>
