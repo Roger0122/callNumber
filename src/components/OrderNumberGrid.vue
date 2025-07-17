@@ -14,7 +14,7 @@
       :class="[
       'cursor-pointer min-w-0 w-full text-center font-bold text-2xl rounded p-2', 
       textColor,
-      isDeletable ? 'hover:bg-green-300' : '',
+      isDeletable ? 'hover:bg-red-400' : '',
       selected === num ? 'bg-red-200' : ''
       ]"
       @click = "handleClick(num)"

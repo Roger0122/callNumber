@@ -4,8 +4,8 @@
       <h2 class="text-xl font-bold mb-4 text-center">銷單確認</h2>
       <p class="text-center text-lg mb-6">{{ message }}</p>
 
-      <div class="flex justify-end gap-3">
-        <button class="px-4 py-2 bg-gray-400 text-white rounded" @click="cancel">取消</button>
+      <div class="flex justify-center gap-3">
+        <button class="px-4 py-2 bg-gray-600 text-white rounded" @click="cancel">取消</button>
         <button class="px-4 py-2 bg-red-600 text-white rounded" @click="confirm">確認</button>
       </div>
     </div>
@@ -18,10 +18,11 @@ const props = defineProps({
   message: String
 })
 
-const emit = defineEmits(['update:isOpen', 'confirm'])
+const emit = defineEmits(['update:isOpen', 'confirm', 'cancel'])
 
 const cancel = () => {
   emit('update:isOpen', false)
+  emit('cancel')
 }
 
 const confirm = () => {

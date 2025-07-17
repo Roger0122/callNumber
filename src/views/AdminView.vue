@@ -46,7 +46,8 @@
   :isOpen="showConfirmModal"
   :message="`確定要銷單：${selectedOrder}`"
   @confirm="confirmCancelOrder"
-  @update:isOpen="showConfirmModal = val"
+  @cancel="toggleDeleteMode"
+  @update:isOpen="showConfirmModal = $event"
 />
 </template>
 
@@ -87,7 +88,6 @@ function confirmCancelOrder() {
   servedList.value = servedList.value.filter(item => item !== selectedOrder.value)
   toastSimple('success', `銷單成功！`)
   selectedOrder.value = null
-  showConfirmModal.value =false
 
 }
 
