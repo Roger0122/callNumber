@@ -9,11 +9,11 @@
           subtitle="Preparing"
           bgColor="bg-red-600"
         />
-      <div class="grid grid-cols-3 gap-3 text-2xl font-bold bg-white ">
-        <div v-for="(num, index) in servedList" :key="index" class="text-center  justify-center text-red-600">
-          {{ num }}
-        </div>
-      </div>
+        <OrderNumberGrid
+            :list="servedList"
+            :columns="3"
+            textColor="text-red-600"
+        />
     </div>
 
 
@@ -25,26 +25,24 @@
           subtitle="Served"
           bgColor="bg-lime-600"
         />
-
-      <div class="grid grid-cols-3 gap-3 text-2xl font-bold bg-white ">
-        <div v-for="(num, index) in servedList" :key="index" class="text-center  justify-center ">
-          {{ num }}
-        </div>
-      </div>
+        <OrderNumberGrid
+          :list="servedList"
+          :columns="3"
+        />
     </div>
   <!-- 外送取餐 -->
-        <div class="w-[20%] pr-4 flex flex-col">
+        <div class="w-[20%] pr-4 flex flex-col ">
         <TitleBox
           title="外送取餐"
           subtitle="Delivery"
           bgColor="bg-amber-600"
         />
 
-      <div class="grid grid-cols-2 gap-3 text-2xl font-bold bg-white ">
-        <div v-for="(num, index) in servedList" :key="index" class="text-center  justify-center  text-red-600">
-          {{ num }}
-        </div>
-      </div>
+      <OrderNumberGrid
+          :list="servedList"
+          :columns="2"
+          textColor="text-red-600"
+        />
     </div>
 
 
@@ -54,6 +52,7 @@
 <script setup>
 import { ref } from 'vue'
 import TitleBox from '../components/TitleBox.vue'
+import OrderNumberGrid from '../components/OrderNumberGrid.vue'
 
 
 

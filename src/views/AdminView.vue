@@ -1,7 +1,7 @@
 <template>
   <div class="flex h-screen w-screen bg-gray-100 p-4">
     <!-- 左側：叫號清單區 -->
-    <div class="w-[85%] pr-4 flex flex-col">
+    <div class="flex-1 pr-4 flex flex-col min-w-0">
         <TitleBox
           icon="/Served.png"
           title="請取餐"
@@ -9,11 +9,10 @@
           bgColor="bg-lime-600"
         />
 
-      <div class="grid grid-cols-3 gap-3 text-2xl font-bold bg-white ">
-        <div v-for="(num, index) in servedList" :key="index" class="text-center  justify-center">
-          {{ num }}
-        </div>
-      </div>
+        <OrderNumberGrid
+        :list="servedList"
+        :columns="3"
+        />
     </div>
 
     <!-- 右側：操作按鈕 -->
@@ -34,6 +33,7 @@
 <script setup>
 import { ref } from 'vue'
 import TitleBox from '../components/TitleBox.vue'
+import OrderNumberGrid from '../components/OrderNumberGrid.vue'
 
 const isActive = ref(false)
 
