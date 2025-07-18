@@ -26,8 +26,14 @@ defineProps({
     type: String,
     default: null
   },
-  title: String,
-  subtitle: String,
+  title: { 
+    type: String,
+    default: null
+  },
+  subtitle: {
+    type: String,
+    default: null
+  },
   bgColor: {
     type: String,
     default: 'bg-gray-600'

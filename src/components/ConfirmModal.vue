@@ -7,9 +7,9 @@
       <h2 class="text-xl font-bold mb-4 text-center">銷單確認</h2>
       <p class="text-center text-lg mb-6">{{ message }}</p>
 
-      <div class="flex justify-center gap-3">
-        <button class="px-4 py-2 bg-gray-600 text-white rounded" @click="cancel">取消</button>
-        <button class="px-4 py-2 bg-red-600 text-white rounded" @click="confirm">確認</button>
+      <div class="flex justify-center gap-3 mb-4">
+        <button class=" font-semibold text-2xl px-8 py-2 border-2 border-gray-600 text-gray-600 rounded-3xl" @click="cancel">取消</button>
+        <button class=" font-semibold text-2xl px-8 py-2  border-2 border-gray-600 text-gray-600 rounded-3xl" @click="confirm">確認</button>
       </div>
     </div>
   </div>

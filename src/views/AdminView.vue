@@ -31,10 +31,14 @@
       </button>
 
       <button 
-      class="bg-amber-500 text-white text-3xl py-3 rounded shadow font-medium">
+      class="bg-amber-500 text-white text-3xl py-3 rounded shadow font-medium"
+      >
       今日紀錄
       </button>
-      <button class="bg-indigo-600 text-white text-3xl py-3 rounded shadow font-medium">
+      <button 
+      class="bg-indigo-600 text-white text-3xl py-3 rounded shadow font-medium"
+      @click = "SystemSettingMode"
+      >
       設定
       </button>
     </div>
@@ -48,6 +52,12 @@
     @update:isOpen="showConfirmModal = $event"
   />
 
+  <SystemSettings 
+  :isOpen ="showSystemSettingModal"
+  @confirm="confirmSystemSetting"
+  @cancel="SystemSettingCancelMode"
+
+  />
 
 </template>
 
@@ -56,6 +66,7 @@ import { ref } from 'vue'
 import TitleBox from '../components/TitleBox.vue'
 import OrderNumberGrid from '../components/OrderNumberGrid.vue'
 import ConfirmModal from '../components/ConfirmModal.vue'
+import SystemSettings from '../components/SystemSettings.vue'
 import { toastSimple } from '../composables/toastSimple.js'
 
 const isDeleting = ref(false)
@@ -74,10 +85,17 @@ const servedList = ref([
   'K806', 'W006', 'K808'
 ])
 
-
 function toggleDeleteMode() {
   isDeleting.value = !isDeleting.value
   selectedOrder.value = null
+}
+
+function SystemSettingCancelMode() {
+  SystemSettingMode()
+}
+
+function SystemSettingMode() {
+  showSystemSettingModal.value = !showSystemSettingModal.value
 }
 
 function onSelect(orderNo) {
@@ -91,6 +109,13 @@ function confirmCancelOrder() {
   selectedOrder.value = null
 
 }
+
+function confirmSystemSetting() {
+  
+  toastSimple('success', `設定成功！`)
+  SystemSettingMode()
+}
+
 
 
 </script>
