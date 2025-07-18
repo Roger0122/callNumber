@@ -31,10 +31,14 @@
       </button>
 
       <button 
-      class="bg-amber-500 text-white text-3xl py-3 rounded shadow font-medium"
+      :class="[' text-white text-3xl py-3 rounded shadow font-medium',
+      isDaying ? 'bg-red-500' : 'bg-amber-500'
+      ]"
+      @click = "DayingMode"
       >
       今日紀錄
       </button>
+
       <button 
       :class="[' text-white text-3xl py-3 rounded shadow font-medium',
       isSetting ? 'bg-red-600' : 'bg-indigo-600'
@@ -55,11 +59,19 @@
     @update:isOpen="showConfirmModal = $event"
   />
 
+  <DayRecord 
+  :isOpen ="showDayModal"
+  @confirm="confirmDaying"
+  @cancel="DayingCancelMode"
+  
+  />
+
+
+
   <SystemSettings 
   :isOpen ="showSystemSettingModal"
   @confirm="confirmSystemSetting"
   @cancel="SystemSettingCancelMode"
-
   />
 
 </template>
@@ -70,6 +82,7 @@ import TitleBox from '../components/TitleBox.vue'
 import OrderNumberGrid from '../components/OrderNumberGrid.vue'
 import ConfirmModal from '../components/ConfirmModal.vue'
 import SystemSettings from '../components/SystemSettings.vue'
+import DayRecord from '../components/DayRecord.vue'
 import { toastSimple } from '../composables/toastSimple.js'
 import { storeToRefs } from 'pinia'
 import { useOrderStore } from '../stores/order'
@@ -78,9 +91,12 @@ const orderStore = useOrderStore()
 
 const isDeleting = ref(false)
 const isSetting = ref(false)
+const isDaying = ref(false)
 const selectedOrder = ref(null)
 const showConfirmModal = ref(false)
+const showDayModal = ref(false)
 const showSystemSettingModal = ref(false)
+
 
 const { preparingOrders } = storeToRefs(orderStore)
 
@@ -94,10 +110,21 @@ function SystemSettingCancelMode() {
   SystemSettingMode()
 }
 
+function DayingCancelMode(){
+  DayingMode()
+}
+
 function SystemSettingMode() {
   showSystemSettingModal.value = !showSystemSettingModal.value
   isSetting.value = !isSetting.value
 }
+
+function DayingMode () {
+  isDaying.value = !isDaying.value
+  showDayModal.value = !showDayModal.value
+}
+
+
 
 function onSelect(orderNo) {
   selectedOrder.value = orderNo
@@ -119,6 +146,9 @@ function confirmSystemSetting() {
   SystemSettingMode()
 }
 
+function confirmDaying() {
+  DayingMode()
+}
 
 
 </script>
