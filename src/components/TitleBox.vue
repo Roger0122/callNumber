@@ -14,7 +14,7 @@
     <!-- 右側：等待人數 -->
     <div v-if="title === '準備中'" class="text-center text-black  ">
       <p class="text-xl">等待人數</p>
-      <p class="text-3xl ">{{ 0 }}</p>
+      <p class="text-3xl ">{{ waitingCount }}</p>
     </div>
 
   </div>
@@ -38,5 +38,9 @@ defineProps({
     type: String,
     default: 'bg-gray-600'
   },
+  waitingCount:{
+    type: Number,
+    default: 0
+  }
 })
 </script>

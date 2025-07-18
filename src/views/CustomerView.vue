@@ -7,6 +7,7 @@
           icon="./Preparing.png"
           title="準備中"
           subtitle="Preparing"
+          :waitingCount=waitingCount
           bgColor="bg-red-600"
         />
         <OrderNumberGrid
@@ -62,7 +63,7 @@ import { useOrderStore } from '../stores/order'
 const settingsStore = useSettingsStore()
 const orderStore = useOrderStore()
 
-const { servedOrders, preparingOrders, deliveryOrders } = storeToRefs(orderStore)
+const { servedOrders, preparingOrders, deliveryOrders, waitingCount } = storeToRefs(orderStore)
 
 
 
@@ -74,15 +75,6 @@ const showDelivery = computed(() =>
   activeSources.value.includes('foodpanda') || activeSources.value.includes('uber')
 )
 
-// 模擬號碼
-const servedList = ref([
-  'A008', '#4140', '2005',
-  '2001', '2002', 'c2a04',
-  '2003', 'cd638', '#4142',
-  'cd639', '2004', '3005',
-  '#4136', '#4137', 'W012',
-  'K806', 'W006', 'K808'
-])
 
 
 

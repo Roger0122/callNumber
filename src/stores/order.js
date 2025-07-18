@@ -15,7 +15,7 @@ export const useOrderStore = defineStore('order', () => {
       { no: 'cd638', source: 'pos1', status:'served' },
       { no: '#4142', source: 'pos2', status:'served' },
       { no: 'cd639', source: 'pos3', status:'served' },
-      { no: '2004', source: 'app', status:'served' },
+      { no: '2004', source: 'app', status:'preparing' },
       { no: '3005', source: 'foodpanda', status:'preparing' },
       { no: '#4136', source: 'uber', status:'served' },
       { no: '#4137', source: 'web', status:'preparing' },
@@ -48,10 +48,17 @@ export const useOrderStore = defineStore('order', () => {
     )
   )
 
+  
+  const waitingCount = computed(() =>
+    servedList.value.filter(
+      o => o.status === 'served' && !['foodpanda', 'uber'].includes(o.source)
+    ).length
+  )
 
 
   return {
     servedList,
+    waitingCount,
     servedOrders,
     preparingOrders,
     deliveryOrders,
