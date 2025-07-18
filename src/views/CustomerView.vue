@@ -2,7 +2,7 @@
   <div class="flex h-screen w-screen bg-gray-100 p-4">
 
     <!-- 左側：準備中 -->
-    <div class="w-[40%] pr-4 flex flex-col">
+    <div :class="[showDelivery ? 'w-[40%]' : 'w-1/2', 'pr-4 flex flex-col']">
         <TitleBox
           icon="./Preparing.png"
           title="準備中"
@@ -18,7 +18,7 @@
 
 
     <!-- 右側：叫號清單區 -->
-    <div class="w-[40%] pr-4 flex flex-col">
+    <div :class="[showDelivery ? 'w-[40%]' : 'w-1/2', 'pr-4 flex flex-col']">
         <TitleBox
           icon="./Served.png"
           title="請取餐"
@@ -31,7 +31,9 @@
         />
     </div>
   <!-- 外送取餐 -->
-        <div class="w-[20%] pr-4 flex flex-col ">
+        <div 
+        v-if="activeSources.includes('foodpanda') || activeSources.includes('uber')"
+        class="w-[20%] pr-4 flex flex-col ">
         <TitleBox
           title="外送取餐"
           subtitle="Delivery"
@@ -50,11 +52,20 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import TitleBox from '../components/TitleBox.vue'
 import OrderNumberGrid from '../components/OrderNumberGrid.vue'
+import { useSettingsStore } from '../stores/settings'
 
+const settingsStore = useSettingsStore()
 
+const activeSources = computed(() =>
+  settingsStore.orderSources.filter(item => item.enabled).map(item => item.key)
+)
+
+const showDelivery = computed(() =>
+  activeSources.value.includes('foodpanda') || activeSources.value.includes('uber')
+)
 
 // 模擬號碼
 const servedList = ref([

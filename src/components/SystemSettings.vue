@@ -43,8 +43,11 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useSettingsStore } from '../stores/settings'
+const settingsStore = useSettingsStore()
 
+const orderSources = ref([])
 
 const props = defineProps({
   isOpen: {
@@ -54,22 +57,6 @@ const props = defineProps({
 })
 
 
-const orderSources = ref([
-  { label: 'APP(1~499)', key: 'app', enabled: true },
-  { label: 'Kiosk', key: 'kiosk', enabled: true },
-  { label: 'Web', key: 'web', enabled: true },
-  { label: '熊貓', key: 'foodpanda', enabled: true },
-  { label: 'Uber', key: 'uber', enabled: true },
-  { label: 'POS1機', key: 'pos1', enabled: true },
-  { label: 'POS2機', key: 'pos2', enabled: true },
-  { label: 'POS3機', key: 'pos3', enabled: true },
-  { label: 'POS4機', key: 'pos4', enabled: true },
-  { label: 'POS5機', key: 'pos5', enabled: true },
-  { label: '電外送', key: 'delivery1', enabled: false },
-  { label: 'A外送', key: 'delivery2', enabled: false },
-  { label: '車道', key: 'drive', enabled: false },
-  { label: '員工餐', key: 'staff', enabled: false }
-])
 const emit = defineEmits(['update:isOpen', 'confirm', 'cancel'])
 
 const cancel = () => {
@@ -78,8 +65,8 @@ const cancel = () => {
 }
 
 const confirm = () => {
+  settingsStore.updateOrderSources(orderSources.value)
   emit('confirm', orderSources.value) 
-  console.log(orderSources.value);
   emit('update:isOpen', false)
 
 }
@@ -88,5 +75,10 @@ function toggleSource(key, value) {
   const item = orderSources.value.find(i => i.key === key)
   if (item) item.enabled = value
 }
+
+
+onMounted(() => {
+  orderSources.value = settingsStore.orderSources.map(item => ({ ...item }))
+})
 
 </script>
