@@ -1,11 +1,5 @@
 <template>
-  <div
-    :class="[
-    'flex h-screen w-screen p-4 bg-gray-100',
-    showConfirmModal ? 'bg-gray-100  opacity-10' : 'bg-gray-100'
-    ]"
-  
-  >
+  <div class="flex h-screen w-screen p-4 bg-gray-100">
     <!-- 左側：叫號清單區 -->
     <div class="flex-1 pr-4 flex flex-col min-w-0">
         <TitleBox

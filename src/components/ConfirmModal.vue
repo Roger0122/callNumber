@@ -1,6 +1,9 @@
 <template>
-  <div v-if="isOpen" class="fixed inset-0 bg-whit-100   flex items-center justify-center z-50">
-    <div class="bg-white p-6 rounded shadow-lg w-[360px]">
+  <div v-if="isOpen" class="fixed inset-0 flex items-center justify-center z-50">
+  <!-- 背景遮罩 -->
+    <div class=" absolute inset-0 bg-gray-400 opacity-40"></div>
+
+    <div class="relative bg-white p-6 rounded shadow-lg w-[360px] z-10">
       <h2 class="text-xl font-bold mb-4 text-center">銷單確認</h2>
       <p class="text-center text-lg mb-6">{{ message }}</p>
 
@@ -14,7 +17,10 @@
 
 <script setup>
 const props = defineProps({
-  isOpen: Boolean,
+  isOpen: {
+    type: Boolean,
+    default: false
+  },
   message: String
 })
 
