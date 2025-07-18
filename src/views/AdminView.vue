@@ -36,7 +36,10 @@
       今日紀錄
       </button>
       <button 
-      class="bg-indigo-600 text-white text-3xl py-3 rounded shadow font-medium"
+      :class="[' text-white text-3xl py-3 rounded shadow font-medium',
+      isSetting ? 'bg-red-600' : 'bg-indigo-600'
+      ]"
+      
       @click = "SystemSettingMode"
       >
       設定
@@ -70,6 +73,7 @@ import SystemSettings from '../components/SystemSettings.vue'
 import { toastSimple } from '../composables/toastSimple.js'
 
 const isDeleting = ref(false)
+const isSetting = ref(false)
 const selectedOrder = ref(null)
 const showConfirmModal = ref(false)
 const showSystemSettingModal = ref(false)
@@ -96,6 +100,7 @@ function SystemSettingCancelMode() {
 
 function SystemSettingMode() {
   showSystemSettingModal.value = !showSystemSettingModal.value
+  isSetting.value = !isSetting.value
 }
 
 function onSelect(orderNo) {
@@ -111,7 +116,7 @@ function confirmCancelOrder() {
 }
 
 function confirmSystemSetting() {
-  
+
   toastSimple('success', `設定成功！`)
   SystemSettingMode()
 }
