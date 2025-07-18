@@ -3,7 +3,7 @@
     <!-- 左側：叫號清單區 -->
     <div class="flex-1 pr-4 flex flex-col min-w-0">
         <TitleBox
-          icon="/Served.png"
+          icon="./Served.png"
           title="請取餐"
           subtitle="Served"
           bgColor="bg-lime-600"
@@ -26,9 +26,12 @@
         isDeleting ? 'bg-red-600' : 'bg-green-600'
       ]"
         @click="toggleDeleteMode"
-        >銷單
+      >
+      銷單
       </button>
-      <button class="bg-amber-500 text-white text-3xl py-3 rounded shadow font-medium">
+
+      <button 
+      class="bg-amber-500 text-white text-3xl py-3 rounded shadow font-medium">
       今日紀錄
       </button>
       <button class="bg-indigo-600 text-white text-3xl py-3 rounded shadow font-medium">
@@ -36,13 +39,16 @@
       </button>
     </div>
   </div>
+
   <ConfirmModal
-  :isOpen="showConfirmModal"
-  :message="`確定要銷單：${selectedOrder}`"
-  @confirm="confirmCancelOrder"
-  @cancel="toggleDeleteMode"
-  @update:isOpen="showConfirmModal = $event"
-/>
+    :isOpen="showConfirmModal"
+    :message="`確定要銷單：${selectedOrder}`"
+    @confirm="confirmCancelOrder"
+    @cancel="toggleDeleteMode"
+    @update:isOpen="showConfirmModal = $event"
+  />
+
+
 </template>
 
 <script setup>
@@ -55,6 +61,7 @@ import { toastSimple } from '../composables/toastSimple.js'
 const isDeleting = ref(false)
 const selectedOrder = ref(null)
 const showConfirmModal = ref(false)
+const showSystemSettingModal = ref(false)
 
 
 // 模擬號碼

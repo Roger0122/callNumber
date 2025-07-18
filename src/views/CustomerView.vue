@@ -4,7 +4,7 @@
     <!-- 左側：準備中 -->
     <div class="w-[40%] pr-4 flex flex-col">
         <TitleBox
-          icon="/Preparing.png"
+          icon="./Preparing.png"
           title="準備中"
           subtitle="Preparing"
           bgColor="bg-red-600"
@@ -20,7 +20,7 @@
     <!-- 右側：叫號清單區 -->
     <div class="w-[40%] pr-4 flex flex-col">
         <TitleBox
-          icon="/Served.png"
+          icon="./Served.png"
           title="請取餐"
           subtitle="Served"
           bgColor="bg-lime-600"
