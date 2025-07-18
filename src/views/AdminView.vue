@@ -10,7 +10,7 @@
         />
 
         <OrderNumberGrid
-        :list="servedList"
+        :list="preparingOrders"
         :columns="3"
         :isDeletable="isDeleting"
         :selected="selectedOrder"
@@ -71,6 +71,10 @@ import OrderNumberGrid from '../components/OrderNumberGrid.vue'
 import ConfirmModal from '../components/ConfirmModal.vue'
 import SystemSettings from '../components/SystemSettings.vue'
 import { toastSimple } from '../composables/toastSimple.js'
+import { storeToRefs } from 'pinia'
+import { useOrderStore } from '../stores/order'
+
+const orderStore = useOrderStore()
 
 const isDeleting = ref(false)
 const isSetting = ref(false)
@@ -78,16 +82,8 @@ const selectedOrder = ref(null)
 const showConfirmModal = ref(false)
 const showSystemSettingModal = ref(false)
 
+const { preparingOrders } = storeToRefs(orderStore)
 
-// 模擬號碼
-const servedList = ref([
-  'A008', '#4140', '2005',
-  '2001', '2002', 'c2a04',
-  '2003', 'cd638', '#4142',
-  'cd639', '2004', '3005',
-  '#4136', '#4137', 'W012',
-  'K806', 'W006', 'K808'
-])
 
 function toggleDeleteMode() {
   isDeleting.value = !isDeleting.value
@@ -109,14 +105,16 @@ function onSelect(orderNo) {
 }
 
 function confirmCancelOrder() {
-  servedList.value = servedList.value.filter(item => item !== selectedOrder.value)
+  const newList = orderStore.servedList.filter(item => item.no !== selectedOrder.value)
+  orderStore.updateOrderList(newList)
   toastSimple('success', `銷單成功！`)
   selectedOrder.value = null
-
+  isDeleting.value = false
+  showConfirmModal.value = false
 }
 
-function confirmSystemSetting() {
 
+function confirmSystemSetting() {
   toastSimple('success', `設定成功！`)
   SystemSettingMode()
 }

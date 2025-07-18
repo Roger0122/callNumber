@@ -10,7 +10,7 @@
           bgColor="bg-red-600"
         />
         <OrderNumberGrid
-            :list="servedList"
+            :list="servedOrders"
             :columns="3"
             textColor="text-red-600"
         />
@@ -26,7 +26,7 @@
           bgColor="bg-lime-600"
         />
         <OrderNumberGrid
-          :list="servedList"
+          :list="preparingOrders"
           :columns="3"
         />
     </div>
@@ -41,7 +41,7 @@
         />
 
       <OrderNumberGrid
-          :list="servedList"
+          :list="deliveryOrders"
           :columns="2"
           textColor="text-red-600"
         />
@@ -52,12 +52,19 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed  } from 'vue'
+import { storeToRefs } from 'pinia'
 import TitleBox from '../components/TitleBox.vue'
 import OrderNumberGrid from '../components/OrderNumberGrid.vue'
 import { useSettingsStore } from '../stores/settings'
+import { useOrderStore } from '../stores/order'
 
 const settingsStore = useSettingsStore()
+const orderStore = useOrderStore()
+
+const { servedOrders, preparingOrders, deliveryOrders } = storeToRefs(orderStore)
+
+
 
 const activeSources = computed(() =>
   settingsStore.orderSources.filter(item => item.enabled).map(item => item.key)

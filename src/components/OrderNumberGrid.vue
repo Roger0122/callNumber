@@ -15,11 +15,11 @@
       'cursor-pointer min-w-0 w-full text-center font-bold text-2xl rounded p-2', 
       textColor,
       isDeletable ? 'hover:bg-red-400' : '',
-      selected === num ? 'bg-red-200' : ''
+      selected === num.no ? 'bg-red-200' : ''
       ]"
-      @click = "handleClick(num)"
+      @click = "handleClick(num.no)"
     >
-      {{ num }}
+      {{ num.no }}
     </div>
   </div>
 </div>
@@ -53,9 +53,9 @@ const props = defineProps({
 })
 
 
-function handleClick(num){
+function handleClick(no){
   if(props.isDeletable){
-    emit('select', num)
+    emit('select', no)
   }
 }
 
