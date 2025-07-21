@@ -67,7 +67,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-
+import { toastSimple } from '../composables/toastSimple.js'
 import { useSettingsStore } from '../stores/settings'
 import { useOrderStore } from '../stores/order'
 const settingsStore = useSettingsStore()
@@ -101,7 +101,20 @@ function toggleSource(key) {
   if (item) {
     item.enabled = false
     userOrderStore.restoreFinishedOrder(key)
+
+
+    orderSources.value = userOrderStore.finishedList.map(item => ({
+      key: item.no,
+      label: item.no,
+      time: item.time || '-',
+      enabled: !item.restored,
+    }))
   }
+
+  toastSimple('success', `已還原 ${item.label}`)
+
+  emit('confirm', item.label )
+  emit('update:isOpen', false)
 }
 
 

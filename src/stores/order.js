@@ -21,8 +21,8 @@ export const useOrderStore = defineStore('order', () => {
       { no: 'A099',   source: 'app',       status:'served', finishedAt: Date.now(), time:'16:50', restored:false },
       { no: '#4152',  source: 'foodpanda', status:'served', finishedAt: Date.now(), time:'16:46', restored:false },
       { no: 'A100',   source: 'kiosk',     status:'served', finishedAt: Date.now(), time:'16:28', restored:false },
-      { no: 'c2a03',  source: 'web',       status:'served', finishedAt: Date.now(), time:'16:38', restored:true  },
-      { no: '#4161',  source: 'uber',      status:'served', finishedAt: Date.now(), time:'16:12', restored:true  },
+      { no: 'c2a03',  source: 'web',       status:'served', finishedAt: Date.now(), time:'16:38', restored:false  },
+      { no: '#4161',  source: 'uber',      status:'served', finishedAt: Date.now(), time:'16:12', restored:false  },
       { no: 'W016',   source: 'staff',     status:'served', finishedAt: Date.now(),  time:'16:30', restored:false },
     ]
   )
