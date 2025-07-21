@@ -132,7 +132,13 @@ function onSelect(orderNo) {
 }
 
 function confirmCancelOrder() {
+  const removed = orderStore.servedList.find(item => item.no === selectedOrder.value)
   const newList = orderStore.servedList.filter(item => item.no !== selectedOrder.value)
+
+  if (removed) {
+    orderStore.addToFinishedList(removed)
+  }
+
   orderStore.updateOrderList(newList)
   toastSimple('success', `銷單成功！`)
   selectedOrder.value = null

@@ -10,8 +10,20 @@
       <div class= "text-2xl  font-bold ml-6 p-2 text-black text-center w-30  rounded-3xl">訂單類型</div> 
       <select class="appearance-none text-2xl font-bold border-2 border-gray-600  w-60  ">
         <option>全部</option>
+        <option>APP</option>
+        <option>Kiosk</option>
+        <option>Web</option>
         <option>熊貓</option>
         <option>Uber</option>
+        <option>POS1機</option>
+        <option>POS2機</option>
+        <option>POS3機</option>
+        <option>POS4機</option>
+        <option>POS5機</option>
+        <option>電外送</option>
+        <option>A外送</option>
+        <option>車道</option>
+        <option>員工餐</option>
       </select>
     <div class=" bg-gray-400 w-8  flex items-center justify-center">
       <div class=" text-black text-center justify-center">
@@ -21,29 +33,29 @@
       </div>
 
       <!-- 選項操作區 -->
-<div class="grid grid-cols-2 px-6 py-2">
-  <div
-    v-for="item in orderSources"
-    :key="item.key"
-    class="grid grid-cols-[1fr_auto_auto] items-center border rounded shadow-sm"
-  >
-    <!-- 左側叫號 -->
-    <p class="font-bold text-xl px-2 truncate">{{ item.label }}</p>
+  <div class="grid grid-cols-2 px-6 py-2">
+    <div
+      v-for="item in orderSources"
+      :key="item.key"
+      class="grid grid-cols-[1fr_auto_auto] items-center border rounded shadow-sm"
+    >
+      <!-- 左側叫號 -->
+      <p class="font-bold text-xl px-2 truncate">{{ item.label }}</p>
 
-    <!-- 中間時間 -->
-    <p class="text-base text-right px-2">{{ item.time }}time</p>
+      <!-- 中間時間 -->
+      <p class="text-base text-right px-2">{{ item.time }}</p>
 
-    <!-- 右側橘底區塊 (外層要滿高、滿寬，內層按鈕右對齊) -->
-    <div class="bg-amber-600 w-full h-full flex justify-end items-center">
-      <button
-        class="text-white text-xl font-bold px-3 py-1"
-        @click="toggleSource(item.key, true)"
-      >
-        還 原
-      </button>
+      <div class="bg-amber-600 w-full h-full flex justify-end items-center">
+        <button
+          class="text-white text-xl font-bold px-3 py-1"
+          :disabled="!item.enabled"
+          @click="toggleSource(item.key)"
+        >
+          還 原
+        </button>
+      </div>
     </div>
   </div>
-</div>
 
       <div class="flex justify-center gap-3 mb-4">
         <button class=" font-semibold text-2xl px-8 py-2 border-2 border-gray-600 text-gray-600 rounded-3xl" @click="cancel">取消</button>
@@ -55,8 +67,11 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+
 import { useSettingsStore } from '../stores/settings'
+import { useOrderStore } from '../stores/order'
 const settingsStore = useSettingsStore()
+const userOrderStore = useOrderStore()
 
 const orderSources = ref([])
 
@@ -79,17 +94,27 @@ const confirm = () => {
   settingsStore.updateOrderSources(orderSources.value)
   emit('confirm', orderSources.value) 
   emit('update:isOpen', false)
-
 }
 
-function toggleSource(key, value) {
+function toggleSource(key) {
   const item = orderSources.value.find(i => i.key === key)
-  if (item) item.enabled = value
+  if (item) {
+    item.enabled = false
+    userOrderStore.restoreFinishedOrder(key)
+  }
 }
+
+
 
 
 onMounted(() => {
-  orderSources.value = settingsStore.orderSources.map(item => ({ ...item }))
+  orderSources.value = userOrderStore.finishedList.map(item => ({
+    key: item.no,
+    label: item.no,
+    time: item.time || '-',
+    enabled: !item.restored
+  }))
 })
+
 
 </script>
