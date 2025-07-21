@@ -13,7 +13,7 @@
         :key="item.key"
         class="flex items-center justify-between border px-4 py-2 rounded shadow-sm"
       >
-        <span class="font-bold text-lg">{{ item.label }}</span>
+        <p class="font-bold text-lg">{{ item.label }}</p>
         <div class="flex gap-1">
           <button
             class="w-12 py-1 rounded text-white"

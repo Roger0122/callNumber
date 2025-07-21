@@ -21,26 +21,29 @@
       </div>
 
       <!-- 選項操作區 -->
-    <div class="grid grid-cols-2 px-6 py-2">
-      <div
-        v-for="item in orderSources"
-        :key="item.key"
-        class="flex items-center justify-between border rounded shadow-sm">
-        <span class="font-bold text-xl">{{ item.label }}</span>
+<div class="grid grid-cols-2 px-6 py-2">
+  <div
+    v-for="item in orderSources"
+    :key="item.key"
+    class="grid grid-cols-[1fr_auto_auto] items-center border rounded shadow-sm"
+  >
+    <!-- 左側叫號 -->
+    <p class="font-bold text-xl px-2 truncate">{{ item.label }}</p>
 
-          <div class="bg-amber-600">
-            <div class="border px-2 py-1 font-bold">
-              <button
-                class="rounded text-white text-2xl" 
-                @click="toggleSource(item.key, true)"
-              >
-                還 原
-              </button>
-            </div>
-          </div>
-      </div>
+    <!-- 中間時間 -->
+    <p class="text-base text-right px-2">{{ item.time }}time</p>
+
+    <!-- 右側橘底區塊 (外層要滿高、滿寬，內層按鈕右對齊) -->
+    <div class="bg-amber-600 w-full h-full flex justify-end items-center">
+      <button
+        class="text-white text-xl font-bold px-3 py-1"
+        @click="toggleSource(item.key, true)"
+      >
+        還 原
+      </button>
     </div>
-
+  </div>
+</div>
 
       <div class="flex justify-center gap-3 mb-4">
         <button class=" font-semibold text-2xl px-8 py-2 border-2 border-gray-600 text-gray-600 rounded-3xl" @click="cancel">取消</button>
