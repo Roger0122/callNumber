@@ -4,8 +4,19 @@
     <div class=" absolute inset-0 bg-gray-400 opacity-40"></div>
     <!-- 展示內容 -->
     <div class="relative bg-white  rounded shadow-lg h-screen w-[600px] z-10">
-      <h2 class="text-2xl font-bold mb-4 p-2 bg-black text-white text-center">用餐別顯示</h2>
+      
+    <div class="flex items-center justify-between mb-4 p-2 bg-black text-white">
+      <h2 class="text-2xl font-bold text-center w-full">用餐別顯示</h2>
+      <button @click="cancel" class="absolute right-4 text-white text-2xl font-bold">&times;</button>
+    </div>
+
+
       <p class= "text-xl  font-bold ml-6 p-2 bg-green-600 text-white text-center w-30  rounded-3xl">餐別顯示</p> 
+
+
+
+
+
     <!-- 選項操作區 -->
     <div class="grid grid-cols-2 px-6 py-2">
       <div
