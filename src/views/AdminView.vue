@@ -25,7 +25,7 @@
         'text-white text-3xl py-3 rounded shadow font-medium',
         isDeleting ? 'bg-red-600' : 'bg-green-600'
       ]"
-        @click="toggleDeleteMode"
+      @click="toggleDeleteMode"
       >
       銷單
       </button>
@@ -66,8 +66,6 @@
   
   />
 
-
-
   <SystemSettings 
   :isOpen ="showSystemSettingModal"
   @confirm="confirmSystemSetting"
@@ -97,9 +95,7 @@ const showConfirmModal = ref(false)
 const showDayModal = ref(false)
 const showSystemSettingModal = ref(false)
 
-
 const { preparingOrders } = storeToRefs(orderStore)
-
 
 function toggleDeleteMode() {
   isDeleting.value = !isDeleting.value
@@ -111,7 +107,7 @@ function SystemSettingCancelMode() {
 }
 
 function DayingCancelMode(){
-  DayingMode()
+  DayingMode()  
 }
 
 function SystemSettingMode() {
@@ -123,8 +119,6 @@ function DayingMode () {
   isDaying.value = !isDaying.value
   showDayModal.value = !showDayModal.value
 }
-
-
 
 function onSelect(orderNo) {
   selectedOrder.value = orderNo
@@ -145,7 +139,6 @@ function confirmCancelOrder() {
   isDeleting.value = false
   showConfirmModal.value = false
 }
-
 
 function confirmSystemSetting() {
   toastSimple('success', `設定成功！`)

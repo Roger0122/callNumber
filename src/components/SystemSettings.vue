@@ -10,12 +10,7 @@
       <button @click="cancel" class="absolute right-4 text-white text-2xl font-bold">&times;</button>
     </div>
 
-
-      <p class= "text-xl  font-bold ml-6 p-2 bg-green-600 text-white text-center w-30  rounded-3xl">餐別顯示</p> 
-
-
-
-
+    <p class= "text-xl  font-bold ml-6 p-2 bg-green-600 text-white text-center w-30  rounded-3xl">餐別顯示</p> 
 
     <!-- 選項操作區 -->
     <div class="grid grid-cols-2 px-6 py-2">
@@ -43,7 +38,6 @@
         </div>
       </div>
     </div>
-
 
       <div class="flex justify-center gap-3 mb-4">
         <button class=" font-semibold text-2xl px-8 py-2 border-2 border-gray-600 text-gray-600 rounded-3xl" @click="cancel">取消</button>

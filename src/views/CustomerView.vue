@@ -17,7 +17,6 @@
         />
     </div>
 
-
     <!-- 右側：叫號清單區 -->
     <div :class="[showDelivery ? 'w-[40%]' : 'w-1/2', 'pr-4 flex flex-col']">
         <TitleBox
@@ -47,8 +46,6 @@
           textColor="text-red-600"
         />
     </div>
-
-
   </div>
 </template>
 
@@ -65,8 +62,6 @@ const orderStore = useOrderStore()
 
 const { servedOrders, preparingOrders, deliveryOrders, waitingCount } = storeToRefs(orderStore)
 
-
-
 const activeSources = computed(() =>
   settingsStore.orderSources.filter(item => item.enabled).map(item => item.key)
 )
@@ -74,8 +69,4 @@ const activeSources = computed(() =>
 const showDelivery = computed(() =>
   activeSources.value.includes('foodpanda') || activeSources.value.includes('uber')
 )
-
-
-
-
 </script>

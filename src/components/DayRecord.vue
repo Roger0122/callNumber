@@ -66,7 +66,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, watch } from 'vue'
 import { toastSimple } from '../composables/toastSimple.js'
 import { useSettingsStore } from '../stores/settings'
 import { useOrderStore } from '../stores/order'
@@ -102,7 +102,6 @@ function toggleSource(key) {
     item.enabled = false
     userOrderStore.restoreFinishedOrder(key)
 
-
     orderSources.value = userOrderStore.finishedList.map(item => ({
       key: item.no,
       label: item.no,
@@ -117,17 +116,17 @@ function toggleSource(key) {
   emit('update:isOpen', false)
 }
 
-
-
-
-onMounted(() => {
-  orderSources.value = userOrderStore.finishedList.map(item => ({
-    key: item.no,
-    label: item.no,
-    time: item.time || '-',
-    enabled: !item.restored
-  }))
-})
-
-
+watch(
+  () => props.isOpen,
+  (val) => {
+    if (val) {
+      orderSources.value = userOrderStore.finishedList.map(item => ({
+        key: item.no,
+        label: item.no,
+        time: item.time || '-',
+        enabled: !item.restored
+      }))
+    }
+  }
+)
 </script>

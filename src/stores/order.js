@@ -33,10 +33,14 @@ export const useOrderStore = defineStore('order', () => {
   }
 
 
-
   function addToFinishedList(order) {
     const finishedAt = Date.now()
-    const time = new Date().toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' })
+    const time = new Date().toLocaleTimeString('zh-TW', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false    
+    });
+    
     finishedList.value.push({
       ...order,
       status: 'served',    
@@ -58,7 +62,7 @@ function restoreFinishedOrder(no) {
     servedList.value.push({
       no: order.no,
       source: order.source,
-      status: 'served',
+      status: 'preparing',
       createdAt: Date.now(),
       restored: false
     })
