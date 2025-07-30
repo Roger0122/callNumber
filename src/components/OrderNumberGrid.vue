@@ -54,9 +54,7 @@ const props = defineProps({
 
 
 function handleClick(no){
-  if(props.isDeletable){
-    emit('select', no)
-  }
+  emit('select', no)
 }
 
 </script>

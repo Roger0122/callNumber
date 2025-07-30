@@ -25,8 +25,9 @@
         'text-white text-3xl py-3 rounded shadow font-medium',
         isDeleting ? 'bg-red-600' : 'bg-green-600'
       ]"
-      @click="toggleDeleteMode"
+        @click="toggleDeleteMode"
       >
+      
       銷單
       </button>
 
@@ -55,9 +56,10 @@
     :isOpen="showConfirmModal"
     :message="`確定要銷單：${selectedOrder}`"
     @confirm="confirmCancelOrder"
-    @cancel="toggleDeleteMode"
+    @cancel="cancelDeleteOrder"
     @update:isOpen="showConfirmModal = $event"
   />
+
 
   <DayRecord 
   :isOpen ="showDayModal"
@@ -94,13 +96,11 @@ const selectedOrder = ref(null)
 const showConfirmModal = ref(false)
 const showDayModal = ref(false)
 const showSystemSettingModal = ref(false)
+const lastClickOrder = ref(null)
+const lastClickTime = ref(0)
 
 const { preparingOrders } = storeToRefs(orderStore)
 
-function toggleDeleteMode() {
-  isDeleting.value = !isDeleting.value
-  selectedOrder.value = null
-}
 
 function SystemSettingCancelMode() {
   SystemSettingMode()
@@ -121,9 +121,33 @@ function DayingMode () {
 }
 
 function onSelect(orderNo) {
-  selectedOrder.value = orderNo
-  showConfirmModal.value = true
+  const now = Date.now()
+
+  // 銷單模式開啟時，直接選擇就彈窗
+  if (isDeleting.value) {
+    selectedOrder.value = orderNo
+    showConfirmModal.value = true
+    return
+  }
+
+  // 非銷單模式時，點兩次才觸發彈窗
+  if (lastClickOrder.value === orderNo && now - lastClickTime.value < 1000) {
+    selectedOrder.value = orderNo
+    isDeleting.value = true
+    showConfirmModal.value = true
+    lastClickOrder.value = null
+    lastClickTime.value = 0
+  } else {
+    lastClickOrder.value = orderNo
+    lastClickTime.value = now
+  }
 }
+
+function toggleDeleteMode() {
+  isDeleting.value = !isDeleting.value
+  selectedOrder.value = null
+}
+
 
 function confirmCancelOrder() {
   const removed = orderStore.servedList.find(item => item.no === selectedOrder.value)
@@ -144,6 +168,15 @@ function confirmSystemSetting() {
   toastSimple('success', `設定成功！`)
   SystemSettingMode()
 }
+
+// 若使用者點取消
+function cancelDeleteOrder() {
+  isDeleting.value = false
+  selectedOrder.value = null 
+  showConfirmModal.value = false
+}
+
+
 
 function confirmDaying() {
   DayingMode()
