@@ -7,29 +7,13 @@
       <h2 class="text-2xl font-bold mb-4 p-2 bg-black text-white text-center">今日紀錄</h2>
       
       <div class="flex">
-      <div class= "text-2xl  font-bold ml-6 p-2 text-black text-center w-30  rounded-3xl">訂單類型</div> 
-      <select class="appearance-none text-2xl font-bold border-2 border-gray-600  w-60  ">
-        <option>全部</option>
-        <option>APP</option>
-        <option>Kiosk</option>
-        <option>Web</option>
-        <option>熊貓</option>
-        <option>Uber</option>
-        <option>POS1機</option>
-        <option>POS2機</option>
-        <option>POS3機</option>
-        <option>POS4機</option>
-        <option>POS5機</option>
-        <option>電外送</option>
-        <option>A外送</option>
-        <option>車道</option>
-        <option>員工餐</option>
-      </select>
-    <div class=" bg-gray-400 w-8  flex items-center justify-center">
-      <div class=" text-black text-center justify-center">
-        ▼
-      </div>
-    </div>
+      <div class= "text-2xl  font-bold ml-6 p-2 text-black text-center w-30  rounded-3xl">訂單類型</div>
+        <v-select
+        v-model="selectedType"
+        :options="orderTypes"
+        placeholder="請選擇"
+        class="w-60 font-bold"
+      />
       </div>
 
       <!-- 選項操作區 -->
@@ -70,10 +54,18 @@ import { ref, watch } from 'vue'
 import { toastSimple } from '../composables/toastSimple.js'
 import { useSettingsStore } from '../stores/settings'
 import { useOrderStore } from '../stores/order'
+
 const settingsStore = useSettingsStore()
 const userOrderStore = useOrderStore()
 
+const selectedType = ref('全部')
 const orderSources = ref([])
+
+const orderTypes = [
+  '全部', 'APP', 'Kiosk', 'Web', '熊貓', 'Uber',
+  'POS1機', 'POS2機', 'POS3機', 'POS4機', 'POS5機',
+  '電外送', 'A外送', '車道', '員工餐'
+]
 
 const props = defineProps({
   isOpen: {
@@ -81,6 +73,7 @@ const props = defineProps({
     default: false
   },
 })
+
 
 
 const emit = defineEmits(['update:isOpen', 'confirm', 'cancel'])
