@@ -11,16 +11,19 @@
       <div class= "text-2xl  font-bold  p-2 text-black text-center w-30  rounded-3xl">訂單類型</div>
       <div class="  my-1.5">
       <v-select
-        v-model="selectedType"
-        :options="orderTypes"
-        placeholder="請選擇"
         class="w-60 font-bold "
+        v-model="selectedType"
+        :options="orderTypeOptions"
+        label="label"
+        :reduce="option => option.value"
+        placeholder="請選擇"
       />
       </div>
       </div>
 
       <!-- 選項操作區 -->
   <div class="grid grid-cols-2 px-6 py-2">
+    <template v-if="orderSources.length > 0">
     <div
       v-for="item in orderSources"
       :key="item.key"
@@ -42,7 +45,17 @@
         </button>
       </div>
     </div>
+    </template>
+
+    <template v-else>
+    <div class="col-span-2 text-center text-gray-500 text-xl py-8">
+      沒有符合條件的訂單
+    </div>
+      </template>
   </div>
+    
+
+
 
       <div class="flex justify-center gap-3 mb-4">
         <button class=" font-semibold text-2xl px-8 py-2 border-2 border-gray-600 text-gray-600 rounded-3xl" @click="cancel">取消</button>
@@ -50,6 +63,7 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script setup>
@@ -61,13 +75,25 @@ import { useOrderStore } from '../stores/order'
 const settingsStore = useSettingsStore()
 const userOrderStore = useOrderStore()
 
-const selectedType = ref('全部')
+const selectedType = ref('all')
 const orderSources = ref([])
 
-const orderTypes = [
-  '全部', 'APP', 'Kiosk', 'Web', '熊貓', 'Uber',
-  'POS1機', 'POS2機', 'POS3機', 'POS4機', 'POS5機',
-  '電外送', 'A外送', '車道', '員工餐'
+const orderTypeOptions = [
+  { label: '全部', value: 'all' },
+  { label: 'APP', value: 'app' },
+  { label: 'Kiosk', value: 'kiosk' },
+  { label: 'Web', value: 'web' },
+  { label: '熊貓', value: 'foodpanda' },
+  { label: 'Uber', value: 'uber' },
+  { label: '員工餐', value: 'staff' },
+  { label: 'POS1機', value: 'pos1' },
+  { label: 'POS2機', value: 'pos2' },
+  { label: 'POS3機', value: 'pos3' },
+  { label: 'POS4機', value: 'pos4' },
+  { label: 'POS5機', value: 'pos5' },
+  { label: '電外送', value: 'delivery1' },
+  { label: 'A外送', value: 'delivery2' },
+  { label: '車道', value: 'drive' },
 ]
 
 const props = defineProps({
@@ -113,16 +139,21 @@ function toggleSource(key) {
 }
 
 watch(
-  () => props.isOpen,
-  (val) => {
-    if (val) {
-      orderSources.value = userOrderStore.finishedList.map(item => ({
+  [() => props.isOpen, selectedType],
+  ([isOpen]) => {
+    if (isOpen) {
+      const all = userOrderStore.finishedList.map(item => ({
         key: item.no,
         label: item.no,
+        source: item.source || '未知', 
         time: item.time || '-',
-        enabled: !item.restored
+        enabled: !item.restored,
       }))
+      orderSources.value = selectedType.value === 'all'
+        ? all
+        : all.filter(i => i.source === selectedType.value.toLowerCase())
     }
-  }
+  },
+  { immediate: true }
 )
 </script>
