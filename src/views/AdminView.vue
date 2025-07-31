@@ -10,7 +10,7 @@
         />
 
         <OrderNumberGrid
-        :list="preparingOrders"
+        :list="servedOrders"
         :columns="3"
         :isDeletable="isDeleting"
         :selected="selectedOrder"
@@ -74,7 +74,6 @@
   :isOpen ="showDayModal"
   @confirm="confirmDaying"
   @cancel="DayingCancelMode"
-  
   />
 
   <SystemSettings 
@@ -112,7 +111,7 @@ const showSystemSettingModal = ref(false)
 const lastClickOrder = ref(null)
 const lastClickTime = ref(0)
 
-const { preparingOrders } = storeToRefs(orderStore)
+const { servedOrders } = storeToRefs(orderStore)
 
 // 條碼
 function handleScan(e){
@@ -140,7 +139,7 @@ function handleScannedCode(scannedCode) {
 
 
   if(!order){
-    toastSimple('error','查無訂單:${scannedCode}')
+    toastSimple('error',`查無訂單:${scannedCode}`)
     return
   }
   selectedOrder.value = scannedCode

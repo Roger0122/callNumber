@@ -11,7 +11,7 @@
           bgColor="bg-red-600"
         />
         <OrderNumberGrid
-            :list="servedOrders"
+            :list="preparingOrders"
             :columns="3"
             textColor="text-red-600"
         />
@@ -26,7 +26,7 @@
           bgColor="bg-lime-600"
         />
         <OrderNumberGrid
-          :list="preparingOrders"
+          :list="servedOrders"
           :columns="3"
         />
     </div>

@@ -6,12 +6,12 @@ export const useOrderStore = defineStore('order', () => {
   const servedList = ref(
     JSON.parse(localStorage.getItem('servedList')) || [
       // 仍在場上可銷單的資料（示範）
-      { no: 'A008',   source: 'app',       status:'served',    createdAt: Date.now(),  restored: false },
-      { no: '#4140',  source: 'foodpanda', status:'served',    createdAt: Date.now(),  restored: false },
-      { no: '2005',   source: 'uber',      status:'served',    createdAt: Date.now(),  restored: false },
-      { no: '2001',   source: 'kiosk',     status:'served',    createdAt: Date.now(),  restored: false },
+      { no: 'A008',   source: 'app',       status:'served', createdAt: Date.now(),  restored: false },
+      { no: '#4140',  source: 'foodpanda', status:'served', createdAt: Date.now(),  restored: false },
+      { no: '2005',   source: 'uber',      status:'served', createdAt: Date.now(),  restored: false },
+      { no: '2001',   source: 'kiosk',     status:'served', createdAt: Date.now(),  restored: false },
       { no: '2004',   source: 'app',       status:'preparing', createdAt: Date.now(),  restored: false },
-      { no: '3005',   source: 'foodpanda', status:'preparing', createdAt: Date.now(),   restored: false },
+      { no: '3005',   source: 'foodpanda', status:'preparing',createdAt: Date.now(), restored: false },
       { no: 'K806',   source: 'pos4',      status:'preparing', createdAt: Date.now(),   restored: false },
     ]
   )
@@ -62,7 +62,7 @@ function restoreFinishedOrder(no) {
     servedList.value.push({
       no: order.no,
       source: order.source,
-      status: 'preparing',
+      status: 'served',
       createdAt: Date.now(),
       restored: false
     })
