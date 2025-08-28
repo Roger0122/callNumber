@@ -1,5 +1,5 @@
 <template>
-<div class="text-2xl font-bold bg-white rounded-md ">
+<div class="text-2xl font-bold bg-white rounded-md  mt-1">
   <div :class="['grid gap-3', {
     'grid-cols-1': columns === 1,
     'grid-cols-2': columns === 2,
