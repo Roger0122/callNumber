@@ -4,9 +4,14 @@
     <div class=" absolute inset-0 bg-gray-400 opacity-40"></div>
     <!-- 展示內容 -->
 
-    <div class="relative bg-white  rounded shadow-lg h-screen w-[600px] z-10">
-      <h2 class="text-2xl font-bold mb-4 p-2 bg-black text-white text-center">今日紀錄</h2>
-      
+    <div class="relative bg-white  rounded shadow-lg h-screen w-[600px] z-10">     
+    <div class="flex items-center justify-between mb-4 p-2 bg-black text-white">
+      <h2 class="text-2xl font-bold text-center w-full">今日紀錄</h2>
+      <button @click="cancel" class="absolute right-4 text-white text-2xl font-bold">&times;</button>
+    </div>
+
+
+
       <div class="flex ">
       <div class= "text-2xl  font-bold  p-2 text-black text-center w-30  rounded-3xl">訂單類型</div>
       <div class="  my-1.5">

@@ -72,8 +72,6 @@ function restoreFinishedOrder(no) {
   }
 }
 
-
-
   const servedOrders = computed(() =>
     servedList.value.filter(o => o.status === 'served' && !['foodpanda', 'uber'].includes(o.source))
   )

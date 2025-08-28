@@ -53,7 +53,6 @@ const statusType = computed(() => {
 })
 
 
-
 const bgColorClass = computed(() => {
   switch (statusType.value) {
     case 'served': return 'bg-lime-600'
