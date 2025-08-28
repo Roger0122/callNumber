@@ -8,7 +8,7 @@
           title="準備中"
           subtitle="Preparing"
           :waitingCount=waitingCount
-          bgColor="bg-red-600"
+          bgColor="bg-[#d60000]"
         />
         <OrderNumberGrid
             :list="preparingOrders"
