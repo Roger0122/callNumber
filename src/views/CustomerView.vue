@@ -1,6 +1,5 @@
 <template>
-  <div class="flex h-screen w-screen bg-gray-100 p-4">
-
+  <div class="flex h-screen w-screen bg-gray-300  p-4">
     <!-- 左側：準備中 -->
     <div :class="[showDelivery ? 'w-[40%]' : 'w-1/2', 'pr-4 flex flex-col']">
         <TitleBox
