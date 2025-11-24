@@ -91,7 +91,7 @@ function restoreFinishedOrder(no) {
   
   const waitingCount = computed(() =>
     servedList.value.filter(
-      o => o.status === 'served' && !['foodpanda', 'uber'].includes(o.source)
+      o => o.status === 'preparing' && !['foodpanda', 'uber'].includes(o.source)
     ).length
   )
 
